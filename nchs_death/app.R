@@ -1,12 +1,3 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 
 library(tidyverse)
@@ -19,65 +10,70 @@ usatopfive <- read_csv("usa_topfive_1990_1950_2000.csv") %>% clean_names()
 topfiveexcess <- read_csv("topfive_excessdeaths.csv") %>% clean_names()
 usaleadingcauses <- read_csv("usa_leadingcauses.csv") %>% clean_names()
 
-
-
-
-# Define UI for application that draws a histogram
 ui <- fluidPage(
-
-    # Application title
     titlePanel("NCHS Causes of Death in the US"),
-
-    # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
             checkboxGroupInput("causes",
                         "Select a cause of death to view on the plot.",
                         choices = unique(causes$cause),
-                        selected = unique(causes$cause)[1])
-        ),
+                        selected = unique(causes$cause)[1]),
+  
 
-        # Show a plot of the generated distribution
+          checkboxGroupInput("sex",
+                      "Please select a sex to view life expectancy for.",
+                      choices = unique(lifeexpectancy$sex),
+                      selected = unique(lifeexpectancy$sex)[1]),
+          checkboxGroupInput("race",
+                      "Please select a race to view life expectancy for.",
+                      choices = unique(lifeexpectancy$race),
+                      selected = unique(lifeexpectancy$race)[1])
+        ),
         mainPanel(
-           plotOutput("adjRatePlot")
+           plotOutput("adjRatePlot"),
+           plotOutput("lifeExpectancyPlot")
         )
-        
-        
     )
 )
 
-# Define server logic required to draw a histogram
 server <- function(input, output) {
 
-  
+  output$adjRatePlot <- renderPlot({
     
-    output$adjRatePlot <- renderPlot({
-      
-      
     if  (length(input$causes) > 0){
       cause_timelinedf <- causes %>% 
         filter(cause == input$causes)
     }
     
-      else {cause_timelinedf <- causes}
-      
-      
-      
-        ggplot(cause_timelinedf, aes(x=year, y=age_adjusted_death_rate, color = cause)) + 
-            geom_line() +
-            labs(
-                x = "Year",
-                y = "Death Rate per 100,000",
-                caption = "Data from NCHS, Public Domain",
-                title = "Age adjusted death rates among US adults from 1900-2017"
-            )
-        
-    })
+    else {cause_timelinedf <- causes}
+  
+    ggplot(cause_timelinedf, aes(x=year, y=age_adjusted_death_rate, color = cause)) + 
+      geom_line() +
+      labs(
+        x = "Year",
+        y = "Death Rate per 100,000",
+        caption = "Data from NCHS, Public Domain",
+        title = "Age adjusted death rates among US adults from 1900-2017"
+      )
+  })
+  output$lifeExpectancyPlot <- renderPlot({
     
-    # output$debug <- renderText({
-    #   paste(input$causes, sep = ",")
-    # })
+    if  (length(input$sex) > 0 & length(input$race) > 0){
+     lifeTimelinedf <- lifeexpectancy %>%
+        filter(sex %in% input$sex, race %in% input$race)
+    }
+    
+    else {lifeTimelinedf <- lifeexpectancy}
+    
+    ggplot(lifeTimelinedf, aes(x=year, y=average_life_expectancy_years, color = sex, linetype = race)) + 
+      geom_line() +
+      labs(
+        x = "Year",
+        y = "Life Expectancy (in years)",
+        caption = "Data from NCHS, Public Domain",
+        title = "Average Life Expectancy by Year from 1900-2017"
+      )
+  })
 }
 
-# Run the application 
 shinyApp(ui = ui, server = server)
