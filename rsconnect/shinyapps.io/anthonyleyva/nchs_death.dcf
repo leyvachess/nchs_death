@@ -5,9 +5,9 @@ account: anthonyleyva
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4056423
-bundleId: 4538360
+bundleId: 4538468
 url: https://anthonyleyva.shinyapps.io/nchs_death/
-when: 1619761384.41295
-lastSyncTime: 1619761384.41295
+when: 1619764082.3958
+lastSyncTime: 1619764082.3968
 asMultiple: FALSE
 asStatic: FALSE
