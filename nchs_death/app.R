@@ -6,18 +6,19 @@ causes <- read_csv("major_causes_ofdeath.csv") %>%
   clean_names() %>% 
   filter(age_adjusted_death_rate < 1000)
 lifeexpectancy <- read_csv("life_expectancy_atbirth.csv") %>% clean_names()
-usatopfive <- read_csv("usa_topfive_1990_1950_2000.csv") %>% clean_names()
-topfiveexcess <- read_csv("topfive_excessdeaths.csv") %>% clean_names()
-usaleadingcauses <- read_csv("usa_leadingcauses.csv") %>% clean_names()
 
 ui <- fluidPage(
     titlePanel("NCHS Causes of Death in the US"),
     sidebarLayout(
         sidebarPanel(
+          "Plot One Selector",
             checkboxGroupInput("causes",
                         "Select a cause of death to view on the plot.",
                         choices = unique(causes$cause),
                         selected = unique(causes$cause)[1]),
+          HTML("<br> <br> <br>"),
+          "Plot Two Selectors",
+          
   
 
           checkboxGroupInput("sex",

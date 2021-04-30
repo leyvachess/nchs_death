@@ -1,0 +1,13 @@
+name: nchs_death
+title:
+username:
+account: anthonyleyva
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4056423
+bundleId: 4538360
+url: https://anthonyleyva.shinyapps.io/nchs_death/
+when: 1619761384.41295
+lastSyncTime: 1619761384.41295
+asMultiple: FALSE
+asStatic: FALSE

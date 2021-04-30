@@ -1,9 +1,11 @@
-# nchs_death
+# NCHS Mortality Visualization App
 
 
 **Introduction**
-[This app](https://anthonyleyva.shinyapps.io/nchs_death/) examines a series of death statistics from the years 1900-2017. The first plot shows the average death rates by year for US adults. The second plot shows each year's average life expectancy; the second plot allows for the life expectancy to filtered by race and/or sex.
+The NCHS Mortality Visualization [App](https://anthonyleyva.shinyapps.io/nchs_death/) examines a series of death statistics from the years 1900-2017. The first plot shows the average death rates by year for US adults. The second plot shows each year's average life expectancy; the second plot allows for the life expectancy to filtered by race and/or sex.
 
+**Instructions**
+__The first plot shows the average death rates by year for US adults. The second plot shows each year's average life expectancy; the second plot allows for the life expectancy to filtered by race and/or sex.__
 
 **Sources**
 All of the data was found from the NCHS, which is part of the CDC;
