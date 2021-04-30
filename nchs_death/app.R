@@ -31,7 +31,7 @@ ui <- fluidPage(
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
-            checkboxGroupInput("Causes",
+            checkboxGroupInput("causes",
                         "Select a cause of death to view on the plot.",
                         choices = unique(causes$cause),
                         selected = unique(causes$cause)[1])
@@ -54,8 +54,14 @@ server <- function(input, output) {
     output$adjRatePlot <- renderPlot({
       
       
+    if  (length(input$causes) > 0){
       cause_timelinedf <- causes %>% 
         filter(cause == input$causes)
+    }
+    
+      else {cause_timelinedf <- causes}
+      
+      
       
         ggplot(cause_timelinedf, aes(x=year, y=age_adjusted_death_rate, color = cause)) + 
             geom_line() +
