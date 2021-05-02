@@ -1,7 +1,7 @@
-library(shiny)
+require(shiny)
 
-library(tidyverse)
-library(janitor)
+require(tidyverse)
+require(janitor)
 causes <- read_csv("major_causes_ofdeath.csv") %>%
   clean_names() %>% 
   filter(age_adjusted_death_rate < 1000)
